@@ -1,5 +1,4 @@
 <?php
-use PHPImageWorkshop\ImageWorkshop;
 
 function parseCommandLineArguments(array $args) : array
 {

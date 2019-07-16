@@ -18,6 +18,7 @@ function imageLoadTests()
     $inputInfo["input-file"] = "/home/ciprianmuresan/PhpstormProjects/Image_Edit_Utility_CLI/pexels-photo-414612.jpeg";
     $inputWithImage = imageLoad($inputInfo);
     assert(isset($inputWithImage["image"]) === TRUE);
+    assert(get_class($inputInfo["image"] === "Imagick"));
 }
 
 imageLoadTests();
