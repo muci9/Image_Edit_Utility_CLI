@@ -41,5 +41,4 @@ function testParseCommandLineArguments()
         ]);
 }
 
-testParseCommandLineArguments();
-//parseCommandLineArguments($argv);
+//testParseCommandLineArguments();

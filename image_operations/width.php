@@ -7,6 +7,11 @@ function setWidth(array $inputInfo) : array
         die;
     if (!isset($inputInfo["image"])) // check if we have an image
         die;
-    $newWidth = $inputInfo["width"];
-    //we create a bl
+    $newImage = $inputInfo["image"]->getImage();
+    $newWidth = (int)$inputInfo["width"];
+    $height = $inputInfo["image"]->getImageGeometry()["height"];
+    //this is execute()
+    $newImage->adaptiveResizeImage($newWidth, $height);
+    $inputInfo["image"] = $newImage;
+    return $inputInfo;
 }
