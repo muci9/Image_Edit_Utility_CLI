@@ -11,6 +11,7 @@ function watermark(array $inputInfo) : array
     $watermark = new Imagick();
     $watermark->readImage($inputInfo["watermark"]);
     $watermark->setImageOpacity(0.1);
+    $watermark->scaleImage($newImage->getImageWidth()/ 10, $newImage->getImageHeight() / 10, TRUE);
     //this is execute()
     $newImage->compositeImage($watermark, Imagick::COMPOSITE_OVER, 0, 0);
     $inputInfo["image"] = $newImage;
