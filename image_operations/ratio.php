@@ -14,11 +14,11 @@ function ratio(array $inputInfo) : array
 {
     ///can execute
     if (!isset($inputInfo["image"]))
-        die;
+        return $inputInfo;
     if (!isset($inputInfo["format"])) // we don't have a format
-        die;
+        return $inputInfo;
     if (isset($inputInfo["height"]) && isset($inputInfo["width"])) // we have a width and a height (impossible case, w/e)
-        die;
+        return $inputInfo;
     list($ratioX, $ratioY) = explode(":", $inputInfo["format"]);
     $newImage = $inputInfo["image"]->getImage();
     $imgHeight = $newImage->getImageHeight();

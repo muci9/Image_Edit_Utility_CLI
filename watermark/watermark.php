@@ -26,9 +26,9 @@ function watermark(array $inputInfo) : array
 {
     // this is canExecute();
     if (!isset($inputInfo["watermark"]) || $inputInfo["watermark"] == NULL) //check if we have a watermark value
-        die;
+        return $inputInfo;
     if (!isset($inputInfo["image"])) // check if we have an image
-        die;
+        return $inputInfo;
     $newImage = $inputInfo["image"]->getImage();
     //prepare watermark, possible to move to image_load
     $watermark = getWatermark($inputInfo["watermark"], $newImage);
