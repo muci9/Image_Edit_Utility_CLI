@@ -11,7 +11,6 @@ function width(array $inputInfo) : array
         return $inputInfo;
     $newImage = $inputInfo["image"]->getImage();
     $newWidth = (int)$inputInfo["width"];
-    $height = $inputInfo["image"]->getImageHeight();
     //this is execute()
     $newImage->scaleImage($newWidth, 0);
     $inputInfo["image"] = $newImage;
