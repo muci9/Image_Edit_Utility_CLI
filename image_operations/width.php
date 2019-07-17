@@ -11,7 +11,7 @@ function width(array $inputInfo) : array
     $newWidth = (int)$inputInfo["width"];
     $height = $inputInfo["image"]->getImageGeometry()["height"];
     //this is execute()
-    $newImage->adaptiveResizeImage($newWidth, $height);
+    $newImage->scaleImage($newWidth, 0);
     $inputInfo["image"] = $newImage;
     return $inputInfo;
 }
