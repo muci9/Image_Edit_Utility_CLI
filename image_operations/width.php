@@ -1,6 +1,6 @@
 <?php
 
-function setWidth(array $inputInfo) : array
+function width(array $inputInfo) : array
 {
     // this is canExecute();
     if (!isset($inputInfo["width"]) || $inputInfo["width"] == NULL) //check if we have a width value
