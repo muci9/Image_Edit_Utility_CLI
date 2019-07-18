@@ -8,17 +8,6 @@ include_once "image_operations/ratio.php";
 include_once "image_save/image_save.php";
 include_once "output/showSuccess.php";
 
-const INPUT_FILE = "--input-file";
-const OUTPUT_FILE = "--output-file";
-const WIDTH = "--width";
-const HEIGHT = "--height";
-const FORMAT = "--format";
-const WATERMARK = "--watermark";
-const HELP = "--help";
-const IMAGE = "--image";
-const ERRORS = "errors";
-const STANDARD_KEYS = [INPUT_FILE, OUTPUT_FILE, WIDTH, HEIGHT, FORMAT, WATERMARK, HELP, IMAGE, ERRORS];
-
 function image_edit_utility(array $input)
 {
     $info = parse_command_line_arguments($input);

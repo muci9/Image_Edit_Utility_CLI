@@ -19,10 +19,9 @@ function parse_command_line_arguments(array $input) : array
     $info = [];
     foreach ($input as $option) {
         $key_and_val = explode("=", $option);
-        if (count($key_and_val) != 2 && $key_and_val[0] != HELP)
-            $key_and_val[1] = NULL;
-        else if ($key_and_val[0] == HELP)
-            $key_and_val[1] = TRUE;
+        $key_and_val[1] = NULL;
+        if (count($key_and_val) > 2)
+            $key_and_val[1] = implode("=", $key_and_val[1]);
         $info[$key_and_val[0]] = $key_and_val[1];
     }
     return $info;
