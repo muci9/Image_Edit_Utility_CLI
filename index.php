@@ -8,15 +8,28 @@ include_once "image_operations/ratio.php";
 include_once "image_save/image_save.php";
 include_once "output/showSuccess.php";
 
-$info = parseCommandLineArguments($argv);
-$info = imageLoad($info);
-$info = height($info);
-$info = width($info);
-$info = ratio($info);
-$info = watermark($info);
-$info = imageSave($info);
-showSuccess($info);
+const INPUT_FILE = "--input-file";
+const OUTPUT_FILE = "--output-file";
+const WIDTH = "--width";
+const HEIGHT = "--height";
+const FORMAT = "--format";
+const WATERMARK = "--watermark";
+const HELP = "--help";
+const IMAGE = "--image";
+const ERRORS = "errors";
+const STANDARD_KEYS = [INPUT_FILE, OUTPUT_FILE, WIDTH, HEIGHT, FORMAT, WATERMARK, HELP, IMAGE, ERRORS];
 
+function image_edit_utility(array $input)
+{
+    $info = parse_command_line_arguments($input);
+    $info = imageLoad($info);
+    $info = height($info);
+    $info = width($info);
+    $info = ratio($info);
+    $info = watermark($info);
+    $info = imageSave($info);
+    showSuccess($info);
+}
 //$arrayTest = [
 //    'input-file' => 'pexels-photo-414612.jpeg',
 //    'output-file' => 'itWorks.jpg',
