@@ -81,21 +81,21 @@ function validOutputFilePath(array $input) : bool
 
 function validInputWidth(array $input) : bool
 {
-    if (isset($input[WIDTH]) && !preg_match("/\d+/", $input[WIDTH]))
+    if (isset($input[WIDTH]) && !preg_match("/^\d+$/", $input[WIDTH]))
         return FALSE;
     return TRUE;
 }
 
 function validInputHeight(array $input) : bool
 {
-    if (isset($input[HEIGHT]) && !preg_match("/\d+/", $input[HEIGHT]))
+    if (isset($input[HEIGHT]) && !preg_match("/^\d+$/", $input[HEIGHT]))
         return FALSE;
     return TRUE;
 }
 
 function validInputFormat(array $input) : bool
 {
-    if (isset($input[FORMAT]) && !preg_match("/\d+:\d+/", $input[FORMAT]))
+    if (isset($input[FORMAT]) && !preg_match("/^\d+:\d+$/", $input[FORMAT]))
         return FALSE;
     return TRUE;
 }
