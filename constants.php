@@ -15,7 +15,7 @@ const STANDARD_KEYS = [INPUT_FILE, OUTPUT_FILE, WIDTH, HEIGHT, FORMAT, WATERMARK
 
 // constants for keys determined at later stages
 const ERRORS = "errors";
-const OUTPUT_MESSAGE = "output-msg";
+const OUTPUT_ERRORS = "output-msg";
 const SUCCESS = "success";
 
 // constants for standard input and output directory
