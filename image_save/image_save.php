@@ -2,16 +2,22 @@
 
 function imageSaveController(array $payload)
 {
-
+    $payload = writeImage($payload);
+    if (isset($payload[ERRORS]))
+        errorsController($payload);
+    outputController($payload);
 }
-function imageSave(array $inputInfo) : array
+
+function writeImage(array $payload) : array
 {
-    if (!isset($inputInfo["output-file"]) || !isset($inputInfo["image"]))
-        return $inputInfo;
-    $result =  $inputInfo["image"]->writeImage($inputInfo["output-file"]);
+    $newPayload = $payload;
+    if (!isset($newPayload[OUTPUT_FILE]) || !isset($newPayload[IMAGE])) {
+        $newPayload[ERRORS][] = "Image couldn't be saved.";
+        return $newPayload;
+    }
+    $newPayload[SUCCESS] = FALSE;
+    $result =  $newPayload[IMAGE]->writeImage($newPayload[OUTPUT_FILE]);
     if ($result === TRUE)
-        $inputInfo["success"] = TRUE;
-    else
-        $inputInfo["success"] = FALSE;
-    return $inputInfo;
+        $newPayload[SUCCESS] = TRUE;
+    return $newPayload;
 }

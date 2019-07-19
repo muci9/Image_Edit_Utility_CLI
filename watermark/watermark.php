@@ -1,5 +1,14 @@
 <?php
 
+function watermarkController(array $payload)
+{
+    $newPayload = $payload;
+    $newPayload = addWatermark($newPayload);
+    if (isset($newPayload[ERRORS]))
+        errorsController($newPayload);
+    imageSaveController($newPayload);
+}
+
 function getRandomCorner(Imagick $targetImage, Imagick $watermark) : array
 {
     $maxWidth = $targetImage->getImageWidth() - $watermark->getImageWidth();
@@ -22,20 +31,24 @@ function getWatermark(string $watermarkPath, Imagick $targetImage) : Imagick
     return $watermark;
 }
 
-function watermark(array $inputInfo) : array
+function addWatermark(array $inputInfo) : array
 {
+    $newPayload = $inputInfo;
     // this is canExecute();
-    if (!isset($inputInfo["watermark"]) || $inputInfo["watermark"] == NULL) //check if we have a watermark value
-        return $inputInfo;
-    if (!isset($inputInfo["image"])) // check if we have an image
-        return $inputInfo;
-    $newImage = $inputInfo["image"]->getImage();
+    if (!isset($newPayload[WATERMARK]) || $newPayload[WATERMARK] == NULL) {//check if we have a watermark value
+        return $newPayload;
+    }
+    if (!isset($newPayload[IMAGE])) {// check if we have an image
+        $newPayload[ERRORS][] = "There's no image loaded to apply watermark to.";
+        return $newPayload;
+    }
+    $newImage = $newPayload[IMAGE]->getImage();
     //prepare watermark, possible to move to image_load
-    $watermark = getWatermark($inputInfo["watermark"], $newImage);
+    $watermark = getWatermark($inputInfo[WATERMARK], $newImage);
     //get position for watermark
     list($x, $y) = getRandomCorner($newImage, $watermark);
     //this is execute()
     $newImage->compositeImage($watermark, Imagick::COMPOSITE_OVER, $x, $y);
-    $inputInfo["image"] = $newImage;
-    return $inputInfo;
+    $newPayload[IMAGE] = $newImage;
+    return $newPayload;
 }

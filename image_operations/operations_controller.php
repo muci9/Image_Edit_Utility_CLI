@@ -9,5 +9,5 @@ function operationController(array $payload)
     $payload = height($payload);
     $payload = width($payload);
     $payload = ratio($payload);
-    imageSaveController($payload);
+    watermarkController($payload);
 }
