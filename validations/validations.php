@@ -22,6 +22,8 @@ function validationController(array $input)
 function validateInput(array $input) : array
 {
     $verifiedInput = $input;
+    if (!validRequiredParameters($verifiedInput))
+        $verifiedInput[ERRORS][] = "Required options --input-file and/or --output-file is missing.";
     if (!validKeys($verifiedInput))
         $verifiedInput[ERRORS][] = "Invalid option(s) given.";
     if (!validInputFilePath($verifiedInput))
@@ -30,16 +32,14 @@ function validateInput(array $input) : array
         $verifiedInput[ERRORS][] = "Invalid input file type.";
     if (!validOutputFilePath($verifiedInput))
         $verified_input[ERRORS][] = "Invalid output file path.";
-    if (!validOutputFileType($verifiedInput))
-        $verified_input[ERRORS][] = "Invalid output file type.";
+    //if (!validOutputFileType($verifiedInput))
+    //    $verified_input[ERRORS][] = "Invalid output file type.";
     if (!validInputWidth($verifiedInput))
         $verifiedInput[ERRORS][] = "Invalid width option.";
     if (!validInputHeight($verifiedInput))
         $verifiedInput[ERRORS][] = "Invalid height option.";
     if (!validInputFormat($verifiedInput))
         $verifiedInput[ERRORS][] = "Invalid format option.";
-    if (!validRequiredParameters($verifiedInput))
-        $verifiedInput[ERRORS][] = "Required options --input-file and/or --output-file is missing.";
     return $verifiedInput;
 }
 

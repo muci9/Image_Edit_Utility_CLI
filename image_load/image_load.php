@@ -1,6 +1,10 @@
 <?php
 
 
+function imageLoadController(array $payload)
+{
+
+}
 function imageLoad(array $inputInfo) : array
 {
     if (!isset($inputInfo["input-file"]))
