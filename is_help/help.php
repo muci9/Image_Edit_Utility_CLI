@@ -6,8 +6,8 @@
 function help_controller(array $payload)
 {
     if (is_help($payload))
-        output_controller($payload);
-    validation_controller($payload);
+        outputController($payload);
+    validationController($payload);
 }
 
 /**

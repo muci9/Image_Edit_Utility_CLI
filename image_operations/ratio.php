@@ -13,24 +13,24 @@ function calculateNewHeight(int $imgWidth, int $ratioX, int $ratioY) : int
 function ratio(array $inputInfo) : array
 {
     ///can execute
-    if (!isset($inputInfo["image"]))
+    if (!isset($inputInfo[IMAGE]))
         return $inputInfo;
-    if (!isset($inputInfo["format"])) // we don't have a format
+    if (!isset($inputInfo[FORMAT])) // we don't have a format
         return $inputInfo;
-    if (isset($inputInfo["height"]) && isset($inputInfo["width"])) // we have a width and a height (impossible case, w/e)
+    if (isset($inputInfo[HEIGHT]) && isset($inputInfo[WIDTH])) // we have a width and a height (impossible case, w/e)
         return $inputInfo;
-    list($ratioX, $ratioY) = explode(":", $inputInfo["format"]);
-    $newImage = $inputInfo["image"]->getImage();
+    list($ratioX, $ratioY) = explode(":", $inputInfo[FORMAT]);
+    $newImage = $inputInfo[IMAGE]->getImage();
     $imgHeight = $newImage->getImageHeight();
     $imgWidth = $newImage->getImageWidth();
-    if (isset($inputInfo["height"])) {// if we have a given height, we do the format by calculating a new width
-        $newWidth = calculateNewWidth((int)$inputInfo["height"], $ratioX, $ratioY);
-        $givenHeight = (int)$inputInfo["height"];
+    if (isset($inputInfo[HEIGHT])) {// if we have a given height, we do the format by calculating a new width
+        $newWidth = calculateNewWidth((int)$inputInfo[HEIGHT], $ratioX, $ratioY);
+        $givenHeight = (int)$inputInfo[HEIGHT];
         $newImage->scaleImage($newWidth, $givenHeight);
     }
-    else if (isset($inputInfo["width"])) { // we obtain the format by calculating a new height
-        $newHeight = calculateNewHeight((int)$inputInfo["width"], $ratioX, $ratioY);
-        $givenWidth = (int)$inputInfo["width"];
+    else if (isset($inputInfo[WIDTH])) { // we obtain the format by calculating a new height
+        $newHeight = calculateNewHeight((int)$inputInfo[WIDTH], $ratioX, $ratioY);
+        $givenWidth = (int)$inputInfo[WIDTH];
         $newImage->scaleImage($givenWidth, $newHeight);
     }
     else {  // we don't have a target width/height, but a given aspect ratio, so we compute a new width/height based
@@ -44,6 +44,6 @@ function ratio(array $inputInfo) : array
             $newImage->scaleImage($newWidth, $imgHeight);
         }
     }
-    $inputInfo["image"] = $newImage;
+    $inputInfo[IMAGE] = $newImage;
     return $inputInfo;
 }
