@@ -8,17 +8,11 @@ include_once "image_operations/ratio.php";
 include_once "image_save/image_save.php";
 include_once "output/showSuccess.php";
 
-function image_edit_utility(array $input)
+function imageEditUtility(array $input)
 {
-    $info = parse_command_line_arguments($input);
-    $info = imageLoad($info);
-    $info = height($info);
-    $info = width($info);
-    $info = ratio($info);
-    $info = watermark($info);
-    $info = imageSave($info);
-    showSuccess($info);
 }
+
+imageEditUtility($argv);
 //$arrayTest = [
 //    'input-file' => 'pexels-photo-414612.jpeg',
 //    'output-file' => 'itWorks.jpg',

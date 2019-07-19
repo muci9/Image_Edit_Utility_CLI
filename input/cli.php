@@ -4,30 +4,30 @@
  * Creates the payload with the option => value for the command and continues the flow
  * @param array $input - array containing the input for the command
  */
-function command_line_controller(array $input)
+function commandLineController(array $input)
 {
-    $payload = parse_command_line_arguments($input);
-    help_controller($payload);
+    $payload = parseCommandLineArguments($input);
+    helpController($payload);
 }
 
 /**
  * @param array $input - array containing the input arguments to be parsed
  * @return array $info - array where key => value represents 'option-name' => 'value'
  */
-function parse_command_line_arguments(array $input) : array
+function parseCommandLineArguments(array $input) : array
 {
     $info = [];
     foreach ($input as $option) {
-        $key_and_val = explode("=", $option);
-        $key_and_val[1] = NULL;
-        if (count($key_and_val) > 2)
-            $key_and_val[1] = implode("=", $key_and_val[1]);
-        $info[$key_and_val[0]] = $key_and_val[1];
+        $keyAndValue = explode("=", $option);
+        $keyAndValue[1] = NULL;
+        if (count($keyAndValue) > 2)
+            $keyAndValue[1] = implode("=", $keyAndValue[1]);
+        $info[$keyAndValue[0]] = $keyAndValue[1];
     }
     return $info;
 }
 
-function test_parse_command_line_arguments()
+function testParseCommandLineArguments()
 {
     $argsTest = [
         "--input-file=path",
@@ -35,7 +35,7 @@ function test_parse_command_line_arguments()
         "--width=30",
         "--height=40"
     ];
-    $argsTestResult = parse_command_line_arguments($argsTest);
+    $argsTestResult = parseCommandLineArguments($argsTest);
     assert($argsTestResult === [
             INPUT_FILE => "path",
             OUTPUT_FILE => "path",
@@ -48,7 +48,7 @@ function test_parse_command_line_arguments()
         "--width:30",
         "--height=40px"
     ];
-    $argsTestResult = parse_command_line_arguments($argsTest);
+    $argsTestResult = $parseCommmandLineArguments($argsTest);
     assert($argsTestResult === [
             INPUT_FILE => "path",
             "output-files" => "",
@@ -57,4 +57,4 @@ function test_parse_command_line_arguments()
         ]);
 }
 
-//test_parse_command_line_arguments();
+//$testParseCommandLineArguments();
