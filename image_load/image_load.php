@@ -3,9 +3,9 @@
 
 function imageLoadController(array $payload)
 {
-
+    $payload = loadImage($payload);
 }
-function imageLoad(array $inputInfo) : array
+function loadImage(array $inputInfo) : array
 {
     if (!isset($inputInfo["input-file"]))
         die;
