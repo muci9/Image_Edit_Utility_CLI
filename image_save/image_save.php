@@ -1,5 +1,9 @@
 <?php
 
+function imageSaveController(array $payload)
+{
+
+}
 function imageSave(array $inputInfo) : array
 {
     if (!isset($inputInfo["output-file"]) || !isset($inputInfo["image"]))

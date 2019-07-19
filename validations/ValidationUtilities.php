@@ -50,8 +50,8 @@ function validInputFileType(array $input) : bool
     if (!isset($verifiedInput[INPUT_FILE]))
         return FALSE;
     $pathToFile = $verifiedInput[INPUT_FILE];
-    if (file_exists(INPUT_DIR.$verifiedInput[INPUT_FILE]))
-        $pathToFile = INPUT_DIR.$verifiedInput[INPUT_FILE];
+    if (file_exists(INPUT_DIR.DIRECTORY_SEPARATOR.$verifiedInput[INPUT_FILE]))
+        $pathToFile = INPUT_DIR.DIRECTORY_SEPARATOR.$verifiedInput[INPUT_FILE];
     $contentType = mime_content_type($pathToFile);
     if ($contentType !== "image/jpeg" || $contentType !== "image/png")
         return FALSE;
