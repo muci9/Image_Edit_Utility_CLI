@@ -10,6 +10,7 @@ include_once "output/showSuccess.php";
 
 function imageEditUtility(array $input)
 {
+    commandLineController($input);
 }
 
 imageEditUtility($argv);

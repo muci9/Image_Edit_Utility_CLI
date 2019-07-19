@@ -1,5 +1,5 @@
 <?php
-
+require_once "image_operations/operations_controller.php";
 
 function imageLoadController(array $payload)
 {
@@ -12,16 +12,16 @@ function imageLoadController(array $payload)
 function loadImage(array $payloadWithoutImage) : array
 {
     $payloadWithImage = $payloadWithoutImage;
-    if (!isset($payloadWithImage["input-file"])) {
+    if (!isset($payloadWithImage[INPUT_FILE])) {
         $payloadWithImage[ERRORS][] = "Image couldn't be loaded.";
         return $payloadWithImage;
     }
     $image = new Imagick();
-    if (!$image->readImage($payloadWithImage["input-file"]))  {
+    if (!$image->readImage($payloadWithImage[INPUT_FILE]))  {
         $payloadWithImage[ERRORS][] = "Image couldn't be loaded.";
         return $payloadWithImage;
     }
-    $payloadWithImage["image"] = $image;
+    $payloadWithImage[IMAGE] = $image;
     return $payloadWithImage;
 }
 

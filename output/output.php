@@ -1,4 +1,5 @@
 <?php
+require_once "constants.php";
 
 function outputController(array $payload)
 {
@@ -12,6 +13,7 @@ function outputController(array $payload)
         $payload[ERRORS][] = "Control reached output stage with no result.";
         showErrors($payload);
     }
+    die;
 }
 
 function showSuccess(array $inputInfo) : void
@@ -34,7 +36,7 @@ function showHelp()
         "--watermark - optional parameter. If used, the output image will have the given watermark image in a random corner",
         "--help - optional parameter. If used, a list with all possible arguments will be displayed explaining the usage of each one"
     ];
-    echo(implode(PHP_EOL, $helpMessage));
+    echo(implode(PHP_EOL, $helpMessage).PHP_EOL);
 }
 
 function showErrors(array $payload)

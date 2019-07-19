@@ -16,6 +16,7 @@ function writeImage(array $payload) : array
         return $newPayload;
     }
     $newPayload[SUCCESS] = FALSE;
+    $writeFilePath = $newPayload[OUTPUT_FILE];
     $result =  $newPayload[IMAGE]->writeImage($newPayload[OUTPUT_FILE]);
     if ($result === TRUE)
         $newPayload[SUCCESS] = TRUE;

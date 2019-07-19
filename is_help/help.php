@@ -1,4 +1,7 @@
 <?php
+require_once "constants.php";
+require_once "validations/validations.php";
+require_once "output/output.php";
 
 /**
  * @param array $payload - array that contains all the information with the option => value format
@@ -16,5 +19,5 @@ function helpController(array $payload)
  */
 function hasRequestedHelp(array $payload) : bool
 {
-    return isset($payload[HELP]) ? TRUE : FALSE;
+    return key_exists(HELP, $payload) ? TRUE : FALSE;
 }

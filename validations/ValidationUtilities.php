@@ -2,7 +2,7 @@
 
 function validRequiredParameters(array $input) : bool
 {
-    if (!isset($input[INPUT_FILE]) || !isset($input[OUTPUT_FILE]))
+    if ((!isset($input[INPUT_FILE]) || !isset($input[OUTPUT_FILE])) && isset($input[HELP]))
         return FALSE;
     return TRUE;
 }
@@ -50,19 +50,25 @@ function validInputFileType(array $input) : bool
     if (!isset($verifiedInput[INPUT_FILE]))
         return FALSE;
     $pathToFile = $verifiedInput[INPUT_FILE];
-    if (file_exists(INPUT_DIR.DIRECTORY_SEPARATOR.$verifiedInput[INPUT_FILE]))
-        $pathToFile = INPUT_DIR.DIRECTORY_SEPARATOR.$verifiedInput[INPUT_FILE];
+    if (!file_exists($pathToFile)) {
+        if (file_exists(INPUT_DIR . DIRECTORY_SEPARATOR . $verifiedInput[INPUT_FILE]))
+            $pathToFile = INPUT_DIR . DIRECTORY_SEPARATOR . $verifiedInput[INPUT_FILE];
+        else
+            return FALSE;
+    }
     $contentType = mime_content_type($pathToFile);
-    if ($contentType !== "image/jpeg" || $contentType !== "image/png")
+    if ($contentType !== "image/jpeg" && $contentType !== "image/png")
         return FALSE;
-    $fileInfo = pathinfo($pathToFile, PATHINFO_EXTENSION);
-    if ($fileInfo["extension"] !== "jpg" || $fileInfo["extension"] !== "png" || $fileInfo["extension"] !== "jpeg")
+    $fileExtension = pathinfo($pathToFile, PATHINFO_EXTENSION);
+    if ($fileExtension !== "jpg" && $fileExtension !== "png" && $fileExtension !== "jpeg")
         return FALSE;
     return TRUE;
 }
 
 function validOutputFilePath(array $input) : bool
 {
+    if (!isset($input[OUTPUT_FILE]))
+        return FALSE;
     $filePath = $input[OUTPUT_FILE];
     $directorySeparatorPosition = strrpos($filePath, "/");
     if ($directorySeparatorPosition === FALSE) // only a filename is given
@@ -75,27 +81,21 @@ function validOutputFilePath(array $input) : bool
 
 function validInputWidth(array $input) : bool
 {
-    if (!isset($input[WIDTH]))
-        return FALSE;
-    if (!preg_match("/^\d+$/", $input[WIDTH]))
+    if (isset($input[WIDTH]) && !preg_match("/\d+/", $input[WIDTH]))
         return FALSE;
     return TRUE;
 }
 
 function validInputHeight(array $input) : bool
 {
-    if (!isset($input[HEIGHT]))
-        return FALSE;
-    if (!preg_match("/^\d+$/", $input[HEIGHT]))
+    if (isset($input[HEIGHT]) && !preg_match("/\d+/", $input[HEIGHT]))
         return FALSE;
     return TRUE;
 }
 
 function validInputFormat(array $input) : bool
 {
-    if (!isset($input[FORMAT]))
-        return FALSE;
-    if (!preg_match("/^\d+:\d+$", $input[FORMAT]))
+    if (isset($input[FORMAT]) && !preg_match("/\d+:\d+/", $input[FORMAT]))
         return FALSE;
     return TRUE;
 }

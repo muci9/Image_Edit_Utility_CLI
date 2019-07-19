@@ -1,4 +1,5 @@
 <?php
+require_once "is_help/help.php";
 
 /**
  * Creates the payload with the option => value for the command and continues the flow
@@ -17,11 +18,15 @@ function commandLineController(array $input)
 function parseCommandLineArguments(array $input) : array
 {
     $info = [];
+    array_shift($input);
     foreach ($input as $option) {
         $keyAndValue = explode("=", $option);
-        $keyAndValue[1] = NULL;
         if (count($keyAndValue) > 2)
             $keyAndValue[1] = implode("=", $keyAndValue[1]);
+        if (count($keyAndValue) == 1)
+            $keyAndValue[1] = NULL;
+        if ($keyAndValue[0] == HELP)
+            $keyAndValue[1] = TRUE;
         $info[$keyAndValue[0]] = $keyAndValue[1];
     }
     return $info;
@@ -48,7 +53,7 @@ function testParseCommandLineArguments()
         "--width:30",
         "--height=40px"
     ];
-    $argsTestResult = $parseCommmandLineArguments($argsTest);
+    $argsTestResult = parseCommmandLineArguments($argsTest);
     assert($argsTestResult === [
             INPUT_FILE => "path",
             "output-files" => "",

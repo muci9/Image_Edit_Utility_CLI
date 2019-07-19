@@ -1,6 +1,7 @@
 <?php
 
 require_once "ValidationUtilities.php";
+require_once "errors/errors.php";
 
 /**
  * @param array $input
@@ -11,7 +12,7 @@ function validationController(array $input)
     if (!isset($verifiedInput[ERRORS]))
         imageLoadController($verifiedInput);
     else
-        outputController($verifiedInput);
+        errorsController($verifiedInput);
 }
 
 /**
@@ -22,10 +23,10 @@ function validationController(array $input)
 function validateInput(array $input) : array
 {
     $verifiedInput = $input;
-    if (!validRequiredParameters($verifiedInput))
-        $verifiedInput[ERRORS][] = "Required options --input-file and/or --output-file is missing.";
     if (!validKeys($verifiedInput))
         $verifiedInput[ERRORS][] = "Invalid option(s) given.";
+    if (!validRequiredParameters($verifiedInput))
+        $verifiedInput[ERRORS][] = "Required options --input-file and/or --output-file is missing.";
     if (!validInputFilePath($verifiedInput))
         $verifiedInput[ERRORS][] = "Invalid input file path.";
     if (!validInputFileType($verifiedInput))
